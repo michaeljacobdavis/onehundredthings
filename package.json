@@ -20,7 +20,6 @@
     "eslint-config-airbnb": "^6.0.2",
     "eslint-plugin-react": "^4.1.0",
     "react-native-cli": "^0.1.10",
-    "remote-redux-devtools": "^0.1.2",
     "rnpm": "^1.4.1"
   }
 }

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     height: 48,
     width: 48,
     borderRadius: 25,
-    borderColor: 'rgba(0,0,0,0.1)',
+    borderColor: 'rgba(0,0,0,0.3)',
     borderWidth: 1 / PixelRatio.get(),
     marginTop: 10,
     alignSelf: 'center',

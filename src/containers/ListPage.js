@@ -1,9 +1,14 @@
-import React, { View, PropTypes } from 'react-native';
-import Button from '../components/Button';
+import React, { View, PropTypes, StyleSheet } from 'react-native';
 import List from '../components/List';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ItemsActions from '../actions/items';
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 64
+  }
+});
 
 function mapStateToProps(state) {
   return {
@@ -16,8 +21,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const ListPage = ({ items }) => (
-  <View>
-    <Button content="Add an Item" />
+  <View style={styles.container}>
     <List items={items} />
   </View>
 );

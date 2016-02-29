@@ -1,8 +1,14 @@
-import React, { View } from 'react-native';
+import React, { View, StyleSheet } from 'react-native';
 import Camera from '../components/Camera';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ItemActions from '../actions/item';
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 64
+  }
+});
 
 function mapStateToProps(state) {
   return {
@@ -15,7 +21,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const AddItemPage = () => (
-  <View>
+  <View style={styles.container}>
     <Camera />
   </View>
 );

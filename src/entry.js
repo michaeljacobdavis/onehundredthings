@@ -1,6 +1,7 @@
-import React, { AppRegistry } from 'react-native';
-import App from './containers/App';
-import ListPage from './containers/ListPage';
+import React, {
+  AppRegistry
+} from 'react-native';
+import Router from './Router';
 import { Provider } from 'react-redux';
 import configureStore from './store/configure-store';
 
@@ -9,9 +10,7 @@ export default function native() {
     const store = configureStore();
     return (
       <Provider store={store}>
-        <App>
-          <ListPage />
-        </App>
+        <Router />
       </Provider>
     );
   };

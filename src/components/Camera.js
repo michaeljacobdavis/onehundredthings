@@ -1,7 +1,4 @@
-import React, {
-  View,
-  TouchableOpacity
-} from 'react-native';
+import React from 'react-native';
 
 import { ImagePickerManager } from 'NativeModules';
 import Button from './Button';
