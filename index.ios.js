@@ -1,3 +1,3 @@
-import app from './src/entry';
+import app from './src/Entry';
 
-app('ios');
+app();
