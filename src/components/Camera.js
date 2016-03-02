@@ -1,5 +1,7 @@
-import React from 'react-native';
-
+import React, {
+  PropTypes,
+  Component
+} from 'react-native';
 import { ImagePickerManager } from 'NativeModules';
 import Button from './Button';
 
@@ -23,18 +25,35 @@ const options = {
   }
 };
 
-const selectPhoto = () => {
-  ImagePickerManager.showImagePicker(options, (response) => {
-    if (response.error) {
-      console.log('ImagePickerManager Error: ', response.error);
-    } else {
-      console.log(`data:image/jpeg;base64,${response.data}`);
-    }
-  });
-};
 
-const Camera = () => (
-  <Button content="Select a Photo" onPress={selectPhoto} />
-);
+class Camera extends Component {
+  constructor(props) {
+    super(props);
+    this.selectPhoto = this.selectPhoto.bind(this, props.onSelect);
+  }
+
+  selectPhoto(onSelect) {
+    ImagePickerManager.showImagePicker(options, (response) => {
+      if (response.error) {
+        console.log('ImagePickerManager Error: ', response.error);
+      } else {
+        onSelect(`data:image/jpeg;base64,${response.data}`);
+      }
+    });
+  }
+
+  render() {
+    return (
+      <Button onPress={this.selectPhoto}>
+        {this.props.children}
+      </Button>
+    );
+  }
+}
+
+Camera.propTypes = {
+  onSelect: PropTypes.func.isRequired,
+  children: PropTypes.string.isRequired
+};
 
 export default Camera;

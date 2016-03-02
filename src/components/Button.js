@@ -2,8 +2,7 @@ import React, {
   TouchableHighlight,
   PropTypes,
   Text,
-  StyleSheet,
-
+  StyleSheet
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -22,17 +21,18 @@ const styles = StyleSheet.create({
   }
 });
 
-const Button = ({ content, onPress }) => (
+const Button = ({ children, onPress }) => (
   <TouchableHighlight
     onPress={onPress}
     underlayColor="#1976D2"
     style={styles.button}>
-    <Text style={styles.buttonText}>{content}</Text>
+    <Text style={styles.buttonText}>{children}</Text>
   </TouchableHighlight>
 );
 
 Button.propTypes = {
-  content: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
+  children: PropTypes.string.isRequired
 };
 
 export default Button;
