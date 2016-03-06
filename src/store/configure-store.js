@@ -1,10 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import reducer from '../reducers';
+import storage from '../middleware/storage';
 
 export default function configureStore(initialState) {
   const enhancer = compose(
-    applyMiddleware(thunk)
+    applyMiddleware(thunk, storage)
   );
 
   return createStore(reducer, initialState, enhancer);

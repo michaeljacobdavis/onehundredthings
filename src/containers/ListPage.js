@@ -20,14 +20,14 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(ItemsActions, dispatch);
 }
 
-const ListPage = ({ items }) => (
+const ListPage = (props) => (
   <View style={styles.container}>
-    <List items={items} />
+    <List {...props} />
   </View>
 );
 
 ListPage.propTypes = {
-  items: PropTypes.object.isRequired
+  items: PropTypes.array.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListPage);

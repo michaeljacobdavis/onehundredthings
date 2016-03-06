@@ -1,4 +1,5 @@
 import React, {
+  Component,
   StyleSheet,
   View,
   Text,
@@ -10,6 +11,17 @@ import React, {
 import ListItem from './ListItem';
 
 const styles = StyleSheet.create({
+  emptyContainer: {
+    backgroundColor: '#B6B6B6',
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  emptyMessage: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#B6B6B6'
+  },
   section: {
     padding: 5,
     alignItems: 'center',
@@ -23,33 +35,66 @@ const styles = StyleSheet.create({
   }
 });
 
-const dataSource = new ListView.DataSource({
+const formatItems = (items) => {
+  const list = {};
+  items.forEach((item) => {
+    item.tags.forEach((tag) => {
+      if (list[tag]) {
+        list[tag].push(item);
+      } else {
+        list[tag] = [item];
+      }
+    });
+  });
+
+  return list;
+};
+
+export const dataSource = new ListView.DataSource({
   rowHasChanged: (prev, next) => prev !== next,
   sectionHeaderHasChanged: (prev, next) => prev !== next
 });
 
-const renderSectionHeader = (data, id) => (
+export const renderSectionHeader = (data, id) => (
   <View style={styles.section}>
     <Text style={styles.sectionText}>{id}</Text>
   </View>
 );
 
-const renderRow = (item) => (
-  <ListItem
-    name={item.name}
-    image={item.image}
-    added={item.added} />
+export const renderRow = (item) => (
+  <ListItem {...item} />
 );
 
-const List = ({ items }) => (
-  <ListView
-    dataSource={dataSource.cloneWithRowsAndSections(items)}
-    renderSectionHeader={renderSectionHeader}
-    renderRow={renderRow} />
-);
+
+class List extends Component {
+  componentDidMount() {
+    this.props.fetch();
+  }
+
+  render() {
+    const { items } = this.props;
+    if (!items) {
+      return <View><Text>Loading...</Text></View>;
+    }
+    if (!items.length) {
+      return (
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyMessage}>No Items! Add some to get started.</Text>
+        </View>
+      );
+    }
+    return (
+      <ListView
+        dataSource={dataSource.cloneWithRowsAndSections(formatItems(items))}
+        renderSectionHeader={renderSectionHeader}
+        renderRow={renderRow} />
+    );
+  }
+}
 
 List.propTypes = {
-  items: PropTypes.object.isRequired
+  fetch: PropTypes.func.isRequired,
+  items: PropTypes.array.isRequired
 };
 
 export default List;

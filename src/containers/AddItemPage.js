@@ -3,15 +3,17 @@ import React, {
   Image,
   Picker,
   PropTypes,
+  ScrollView,
   Component,
   StyleSheet
 } from 'react-native';
 import Camera from '../components/Camera';
-import FloatLabelTextInput from 'react-native-floating-label-text-input';
 import Button from '../components/Button';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ItemsActions from '../actions/items';
+import { Actions } from 'react-native-router-flux';
+import TextField from 'react-native-md-textinput';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    item: state.item
+    ...state
   };
 }
 
@@ -40,12 +42,12 @@ class AddItemPage extends Component {
     this.state = {
       image: null,
       name: '',
-      importance: 'want'
+      tags: []
     };
 
     this.handleName = this.handleName.bind(this);
     this.handleImage = this.handleImage.bind(this);
-    this.handleImportance = this.handleImportance.bind(this);
+    this.handleTags = this.handleTags.bind(this);
     this.saveItem = this.saveItem.bind(this);
   }
 
@@ -61,17 +63,18 @@ class AddItemPage extends Component {
     });
   }
 
-  handleImportance(importance) {
+  handleTags(tagString) {
     this.setState({
-      importance
+      tags: tagString.split(',')
     });
   }
 
   saveItem() {
-    this.props.addItem({
+    this.props.add({
       added: new Date().getTime(),
       ...this.state
     });
+    Actions.list();
   }
 
   renderImage(image) {
@@ -96,19 +99,18 @@ class AddItemPage extends Component {
     return (
       <View style={styles.container}>
         {this.renderImage(this.state.image)}
-        <FloatLabelTextInput
-          placeHolder="Item Name"
-          onChangeTextValue={this.handleName}
-          value={this.state.name} />
-
-        <Picker
-          selectedValue={this.state.importance}
-          onValueChange={this.handleImportance}>
-          <Picker.Item label="I Need This" value="need" />
-          <Picker.Item label="I Want This" value="want" />
-          <Picker.Item label="I Have This" value="have" />
-        </Picker>
-
+        <ScrollView>
+          <TextField
+            label="Name"
+            value={this.state.name}
+            onChangeText={this.handleName} />
+        </ScrollView>
+        <ScrollView>
+          <TextField
+            label="Tags"
+            value={this.state.tags.join(', ')}
+            onChangeText={this.handleTags} />
+        </ScrollView>
         <Button
           onPress={this.saveItem}>
           Save Item
@@ -119,7 +121,7 @@ class AddItemPage extends Component {
 }
 
 AddItemPage.propTypes = {
-  addItem: PropTypes.func.isRequired
+  add: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddItemPage);
