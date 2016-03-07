@@ -7,12 +7,10 @@ import React, {
   PropTypes,
   ListView
 } from 'react-native';
-
 import ListItem from './ListItem';
 
 const styles = StyleSheet.create({
   emptyContainer: {
-    backgroundColor: '#B6B6B6',
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
@@ -61,14 +59,14 @@ export const renderSectionHeader = (data, id) => (
   </View>
 );
 
-export const renderRow = (item) => (
-  <ListItem {...item} />
-);
-
-
 class List extends Component {
   componentDidMount() {
     this.props.fetch();
+    this.renderRow = this.renderRow.bind(this);
+  }
+
+  renderRow(item) {
+    return <ListItem {...item} onSelect={this.props.onSelect.bind(null, item)} />
   }
 
   render() {
@@ -76,6 +74,7 @@ class List extends Component {
     if (!items) {
       return <View><Text>Loading...</Text></View>;
     }
+
     if (!items.length) {
       return (
         <View style={styles.emptyContainer}>
@@ -83,18 +82,20 @@ class List extends Component {
         </View>
       );
     }
+
     return (
       <ListView
         dataSource={dataSource.cloneWithRowsAndSections(formatItems(items))}
         renderSectionHeader={renderSectionHeader}
-        renderRow={renderRow} />
+        renderRow={this.renderRow} />
     );
   }
 }
 
 List.propTypes = {
   fetch: PropTypes.func.isRequired,
-  items: PropTypes.array.isRequired
+  items: PropTypes.array.isRequired,
+  onSelect: PropTypes.func.isRequired
 };
 
 export default List;

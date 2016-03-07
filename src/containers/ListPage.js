@@ -2,6 +2,7 @@ import React, { View, PropTypes, StyleSheet } from 'react-native';
 import List from '../components/List';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import * as ItemsActions from '../actions/items';
 
 const styles = StyleSheet.create({
@@ -20,9 +21,15 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(ItemsActions, dispatch);
 }
 
+function selectItem(item) {
+  Actions.item({
+    currentItem: item
+  });
+}
+
 const ListPage = (props) => (
   <View style={styles.container}>
-    <List {...props} />
+    <List {...props} onSelect={selectItem} />
   </View>
 );
 

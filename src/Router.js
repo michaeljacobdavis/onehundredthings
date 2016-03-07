@@ -9,7 +9,7 @@ import {
   TabBar
 } from 'react-native-router-flux';
 import ListPage from './containers/ListPage';
-import AddItemPage from './containers/AddItemPage';
+import ItemPage from './containers/ItemPage';
 import { connect } from 'react-redux';
 
 const TabIcon = ({ selected, title }) => (
@@ -29,7 +29,7 @@ const Routing = () => (
     <Route name="tabbar">
       <Router footer={TabBar}>
         <Route name="list" schema="tab" component={ListPage} initial={true} title="My Items" />
-        <Route name="addItem" schema="tab" component={AddItemPage} title="Add an Item" />
+        <Route name="item" schema="tab" component={ItemPage} title="Item" />
       </Router>
     </Route>
   </Router>

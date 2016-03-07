@@ -7,7 +7,6 @@ import React, {
   PixelRatio,
   PropTypes
 } from 'react-native';
-
 import time from 'vague-time';
 
 const styles = StyleSheet.create({
@@ -69,7 +68,7 @@ ListItem.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   added: PropTypes.number.isRequired,
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func.isRequired
 };
 
 export default ListItem;

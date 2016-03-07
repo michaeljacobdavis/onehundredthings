@@ -1,4 +1,4 @@
-import { SET_ITEMS, ADD_ITEM, FETCH_ITEMS } from '../action-types/items';
+import { SET_ITEMS, ADD_ITEM, FETCH_ITEMS, UPDATE_ITEM } from '../action-types/items';
 
 export function set(items) {
   return {
@@ -10,6 +10,13 @@ export function set(items) {
 export function add(item) {
   return {
     type: ADD_ITEM,
+    payload: item
+  };
+}
+
+export function update(item) {
+  return {
+    type: UPDATE_ITEM,
     payload: item
   };
 }

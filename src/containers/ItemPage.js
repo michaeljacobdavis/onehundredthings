@@ -39,7 +39,7 @@ function mapDispatchToProps(dispatch) {
 class AddItemPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = props.currentItem || {
       image: null,
       name: '',
       tags: []
@@ -70,10 +70,14 @@ class AddItemPage extends Component {
   }
 
   saveItem() {
-    this.props.add({
-      added: new Date().getTime(),
-      ...this.state
-    });
+    if (this.state._id) {
+      this.props.update(this.state);
+    } else {
+      this.props.add({
+        added: new Date().getTime(),
+        ...this.state
+      });
+    }
     Actions.list();
   }
 
@@ -121,7 +125,8 @@ class AddItemPage extends Component {
 }
 
 AddItemPage.propTypes = {
-  add: PropTypes.func.isRequired
+  add: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddItemPage);
