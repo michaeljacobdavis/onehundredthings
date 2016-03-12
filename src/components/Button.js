@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'stretch',
     justifyContent: 'center',
-    flex: 1,
     padding: 10
   },
   buttonText: {

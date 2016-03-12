@@ -8,6 +8,7 @@ import React, {
   PropTypes
 } from 'react-native';
 import time from 'vague-time';
+import Favorite from './Favorite';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const ListItem = ({ name, image, added, onSelect }) => (
+const ListItem = ({ name, image, added, favorite, onSelect }) => (
   <TouchableHighlight onPress={onSelect}>
     <View style={styles.container}>
       <Image
@@ -55,6 +56,7 @@ const ListItem = ({ name, image, added, onSelect }) => (
       <View style={styles.details}>
         <Text style={styles.title}>
           {name}
+          {favorite && <Favorite size={12} enabled={true} />}
         </Text>
         <Text style={styles.detailsLine}>
           {`added ${time.get({ from: new Date(), to: new Date(added) })}`}
@@ -68,6 +70,7 @@ ListItem.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   added: PropTypes.number.isRequired,
+  favorite: PropTypes.bool.isRequired,
   onSelect: PropTypes.func.isRequired
 };
 

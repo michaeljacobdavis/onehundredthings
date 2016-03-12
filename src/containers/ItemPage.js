@@ -1,7 +1,8 @@
 import React, {
   View,
+  TouchableOpacity,
   Image,
-  Picker,
+  Text,
   PropTypes,
   ScrollView,
   Component,
@@ -9,6 +10,7 @@ import React, {
 } from 'react-native';
 import Camera from '../components/Camera';
 import Button from '../components/Button';
+import Favorite from '../components/Favorite';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ItemsActions from '../actions/items';
@@ -17,12 +19,25 @@ import TextField from 'react-native-md-textinput';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 64
+    marginTop: 64,
+    marginBottom: 50,
+    flex: 1
   },
   image: {
     alignSelf: 'stretch',
     justifyContent: 'center',
     height: 150
+  },
+  favoriteContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  favoriteText: {
+    color: '#b0b0b0',
+    fontSize: 16,
+    flex: 1, marginLeft: 5
   }
 });
 
@@ -42,12 +57,14 @@ class AddItemPage extends Component {
     this.state = props.currentItem || {
       image: null,
       name: '',
+      favorite: false,
       tags: []
     };
 
     this.handleName = this.handleName.bind(this);
     this.handleImage = this.handleImage.bind(this);
     this.handleTags = this.handleTags.bind(this);
+    this.handleFavorite = this.handleFavorite.bind(this);
     this.saveItem = this.saveItem.bind(this);
   }
 
@@ -69,6 +86,12 @@ class AddItemPage extends Component {
     });
   }
 
+  handleFavorite() {
+    this.setState({
+      favorite: !this.state.favorite
+    });
+  }
+
   saveItem() {
     if (this.state._id) {
       this.props.update(this.state);
@@ -79,6 +102,21 @@ class AddItemPage extends Component {
       });
     }
     Actions.list();
+  }
+
+  renderFavorite(isFavorite) {
+    return (
+      <View style={styles.favoriteContainer}>
+        <Favorite enabled={isFavorite} size={50} />
+        <Text
+          style={styles.favoriteText}
+          animation="slideInUp"
+          easing="ease-in"
+          duration={20}>
+          {isFavorite ? 'I love this!' : ''}
+        </Text>
+      </View>
+    );
   }
 
   renderImage(image) {
@@ -109,6 +147,10 @@ class AddItemPage extends Component {
             value={this.state.name}
             onChangeText={this.handleName} />
         </ScrollView>
+        <TouchableOpacity
+          onPress={this.handleFavorite}>
+          {this.renderFavorite(this.state.favorite)}
+        </TouchableOpacity>
         <ScrollView>
           <TextField
             label="Tags"
@@ -126,6 +168,7 @@ class AddItemPage extends Component {
 
 AddItemPage.propTypes = {
   add: PropTypes.func.isRequired,
+  currentItem: PropTypes.object,
   update: PropTypes.func.isRequired
 };
 
