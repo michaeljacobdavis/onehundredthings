@@ -6,17 +6,12 @@ import { ImagePickerManager } from 'NativeModules';
 import Button from './Button';
 
 const options = {
-  title: 'Get a Photo',
+  title: 'Find a Photo',
   cancelButtonTitle: 'Cancel',
   takePhotoButtonTitle: 'Take Photo...',
   chooseFromLibraryButtonTitle: 'Choose from Library...',
   cameraType: 'back',
   mediaType: 'photo',
-  maxWidth: 500,
-  maxHeight: 500,
-  aspectX: 2,
-  aspectY: 1,
-  quality: 0.5,
   allowsEditing: false,
   noData: false, // TODO: Disable if we don't need bas64
   storageOptions: {
