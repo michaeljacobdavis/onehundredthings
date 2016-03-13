@@ -7,13 +7,14 @@ import * as ItemsActions from '../actions/items';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 64
+    marginTop: 64,
+    flex: 1
   }
 });
 
 function mapStateToProps(state) {
   return {
-    items: state.items
+    ...state
   };
 }
 

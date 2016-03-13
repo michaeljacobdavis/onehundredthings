@@ -13,9 +13,11 @@ const styles = StyleSheet.create({
   emptyContainer: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   emptyMessage: {
+    flex: 1,
     textAlign: 'center',
     fontSize: 16,
     color: '#B6B6B6'

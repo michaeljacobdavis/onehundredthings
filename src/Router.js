@@ -29,7 +29,7 @@ const Routing = () => (
     <Route name="tabbar">
       <Router footer={TabBar}>
         <Route name="list" schema="tab" component={ListPage} initial={true} title="My Items" />
-        <Route name="item" schema="tab" component={ItemPage} title="Item" />
+        <Route name="item" schema="tab" component={ItemPage} title="Add Item" />
       </Router>
     </Route>
   </Router>
