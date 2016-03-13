@@ -2,7 +2,7 @@ import { ADD_ITEM, SET_ITEMS, UPDATE_ITEM } from '../action-types/items';
 
 export const initialState = [];
 
-export default function counter(state = initialState, action) {
+export default function items(state = initialState, action) {
   switch (action.type) {
     case ADD_ITEM:
       return [

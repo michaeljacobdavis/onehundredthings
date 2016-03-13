@@ -2,9 +2,7 @@ import React, {
   View,
   TouchableOpacity,
   Image,
-  Text,
   PropTypes,
-  ScrollView,
   Component,
   StyleSheet
 } from 'react-native';
@@ -15,13 +13,22 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ItemsActions from '../actions/items';
 import { Actions } from 'react-native-router-flux';
-import TextField from 'react-native-md-textinput';
+import { MKTextField as TextField } from 'react-native-material-kit';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 64,
-    marginBottom: 50,
+    flex: 1,
+    marginTop: 64
+  },
+  form: {
     flex: 1
+  },
+  line: {
+    flexDirection: 'row'
+  },
+  nameInput: {
+    height: 39,
+    flex: 3
   },
   image: {
     alignSelf: 'stretch',
@@ -38,6 +45,8 @@ const styles = StyleSheet.create({
     color: '#b0b0b0',
     fontSize: 16,
     flex: 1, marginLeft: 5
+  },
+  saveButton: {
   }
 });
 
@@ -101,22 +110,7 @@ class AddItemPage extends Component {
         ...this.state
       });
     }
-    Actions.list();
-  }
-
-  renderFavorite(isFavorite) {
-    return (
-      <View style={styles.favoriteContainer}>
-        <Favorite enabled={isFavorite} size={50} />
-        <Text
-          style={styles.favoriteText}
-          animation="slideInUp"
-          easing="ease-in"
-          duration={20}>
-          {isFavorite ? 'I love this!' : ''}
-        </Text>
-      </View>
-    );
+    Actions.pop();
   }
 
   renderImage(image) {
@@ -140,24 +134,29 @@ class AddItemPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.renderImage(this.state.image)}
-        <ScrollView>
+        <View style={styles.form}>
+          {this.renderImage(this.state.image)}
+          <View style={styles.line}>
           <TextField
-            label="Name"
+            style={styles.nameInput}
+            placeholder="Name"
+            floatingLabelEnabled={true}
             value={this.state.name}
             onChangeText={this.handleName} />
-        </ScrollView>
-        <TouchableOpacity
-          onPress={this.handleFavorite}>
-          {this.renderFavorite(this.state.favorite)}
-        </TouchableOpacity>
-        <ScrollView>
+          <TouchableOpacity
+            style={styles.favoriteContainer}
+            onPress={this.handleFavorite}>
+            <Favorite enabled={this.state.favorite} size={50} />
+          </TouchableOpacity>
+        </View>
           <TextField
-            label="Tags"
+            floatingLabelEnabled={true}
+            placeholder="Tags"
             value={this.state.tags.join(', ')}
             onChangeText={this.handleTags} />
-        </ScrollView>
+        </View>
         <Button
+          style={styles.saveButton}
           onPress={this.saveItem}>
           Save Item
         </Button>

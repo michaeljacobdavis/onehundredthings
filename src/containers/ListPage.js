@@ -7,8 +7,8 @@ import * as ItemsActions from '../actions/items';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 64,
-    flex: 1
+    flex: 1,
+    marginTop: 64
   }
 });
 

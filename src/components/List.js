@@ -68,7 +68,7 @@ class List extends Component {
   }
 
   renderRow(item) {
-    return <ListItem {...item} onSelect={this.props.onSelect.bind(null, item)} />
+    return <ListItem {...item} onSelect={this.props.onSelect.bind(null, item)} />;
   }
 
   render() {

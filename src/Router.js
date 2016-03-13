@@ -5,8 +5,7 @@ import React, {
 import {
   Route,
   Router as RouterComponent,
-  Schema,
-  TabBar
+  Actions
 } from 'react-native-router-flux';
 import ListPage from './containers/ListPage';
 import ItemPage from './containers/ItemPage';
@@ -21,17 +20,15 @@ TabIcon.propTypes = {
   selected: PropTypes.bool
 };
 
+function addItem() {
+  Actions.item();
+}
+
 const Router = connect()(RouterComponent);
 const Routing = () => (
   <Router name="root">
-    <Schema name="tab" type="switch" icon={TabIcon} />
-
-    <Route name="tabbar">
-      <Router footer={TabBar}>
-        <Route name="list" schema="tab" component={ListPage} initial={true} title="My Items" />
-        <Route name="item" schema="tab" component={ItemPage} title="Add Item" />
-      </Router>
-    </Route>
+    <Route name="list" schema="tab" component={ListPage} initial={true} rightTitle="+ Add" onRight={addItem} title="My Things" />
+    <Route name="item" schema="tab" component={ItemPage} title="Add" />
   </Router>
 );
 
