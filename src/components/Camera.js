@@ -13,7 +13,7 @@ const options = {
   cameraType: 'back',
   mediaType: 'photo',
   allowsEditing: false,
-  noData: false, // TODO: Disable if we don't need bas64
+  noData: true,
   storageOptions: {
     skipBackup: true,
     path: 'images'
@@ -32,7 +32,7 @@ class Camera extends Component {
       if (response.error) {
         console.log('ImagePickerManager Error: ', response.error);
       } else {
-        onSelect(`data:image/jpeg;base64,${response.data}`);
+        onSelect(response.uri);
       }
     });
   }

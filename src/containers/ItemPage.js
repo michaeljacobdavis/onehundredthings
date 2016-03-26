@@ -1,5 +1,6 @@
 import React, {
   View,
+  ScrollView,
   TouchableOpacity,
   Image,
   PropTypes,
@@ -134,7 +135,7 @@ class AddItemPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.form}>
+        <ScrollView style={styles.form}>
           {this.renderImage(this.state.image)}
           <View style={styles.line}>
           <TextField
@@ -154,7 +155,7 @@ class AddItemPage extends Component {
             placeholder="Tags"
             value={this.state.tags.join(', ')}
             onChangeText={this.handleTags} />
-        </View>
+        </ScrollView>
         <Button
           style={styles.saveButton}
           onPress={this.saveItem}>

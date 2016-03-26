@@ -1,4 +1,4 @@
-import React, { View, PropTypes, StyleSheet } from 'react-native';
+import React, { View, PropTypes, StyleSheet, Component } from 'react-native';
 import List from '../components/List';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -28,11 +28,24 @@ function selectItem(item) {
   });
 }
 
-const ListPage = (props) => (
-  <View style={styles.container}>
-    <List {...props} onSelect={selectItem} />
-  </View>
-);
+class ListPage extends Component {
+  componentWillReceiveProps(props) {
+    if (!props.router.route || props.router.route.name === 'list') {
+      // Set title based on items
+      Actions.refresh({
+        title: `My ${props.items.length} things`
+      });
+    }
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <List {...this.props} onSelect={selectItem} />
+      </View>
+    );
+  }
+}
 
 ListPage.propTypes = {
   items: PropTypes.array.isRequired
